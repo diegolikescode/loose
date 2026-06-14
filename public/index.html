@@ -1,0 +1,20 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script>
+        const ws = new WebSocket('ws://localhost:8080');
+
+        document.addEventListener('mousemove', (e) => {
+            ws.send(JSON.stringify({ x: e.clientX, y: e.clientY }));
+        });
+
+        ws.onmessage = (event) => {
+            const { x, y } = JSON.parse(event.data);
+            console.log('LOGGING::', x,y)
+            // draw dot at x, y
+        };
+        </script>
+    </body>
+</html>
