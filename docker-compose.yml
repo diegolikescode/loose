@@ -1,15 +1,19 @@
 services:
   kafka:
     image: confluentinc/cp-kafka:7.5.0
+    network_mode: host
+    container_name: kaf
     environment:
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
+    network_mode: host
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
